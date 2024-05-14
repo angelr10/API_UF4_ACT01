@@ -66,25 +66,25 @@ def productosSeccionados():
 	cursor = conexion.cursor()
 	query = """
 		SELECT 
-            p.id AS product_id,
-            p.name AS product_name,
-            s.name AS subcategory_name,
-            c.name AS category_name,
-            p.brand,
-            p.price
+            product.product_id AS product_id,
+            product.name AS product_name,
+            subcategory.name AS subcategory_name,
+            category.name AS category_name,
+            product.company AS company,
+            product.price AS price
         FROM 
-            product p
+            product
         JOIN 
-            subcategory s ON p.subcategory_id = s.id
+            subcategory ON product.subcategory_id = subcategory.subcategory_id
         JOIN 
-            category c ON s.category_id = c.id;
+            category ON subcategory.category_id = category.category_id;
 	"""
 	cursor.execute(query)
 	resultado = cursor.fetchall()
 	listProductos =[]
-	
+
 	for a in resultado:
-		aDict = productoDict(a)
+		aDict = productoDictDos(a)
 		listProductos.append(aDict)
 	conexion.close()
 	return listProductos
@@ -114,6 +114,16 @@ def productoDict(a):
 		 "created_at":a[7],
          "updated_at":a[8]
     }
+
+
+def productoDictDos(a):
+	return {"product_id":a[0],
+		"product_name":a[1],
+		"subcategory_name":a[2],
+		"category_name":a[3],
+		"company":a[4],
+		"price":a[5]
+	}
 	
 #Actividad02
 def cargaMasivaTodo():
