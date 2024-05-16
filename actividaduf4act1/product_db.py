@@ -157,38 +157,46 @@ def cargaMasivaTodo():
 
 		for row in reader:#Lector de tabla y almacenamiento individual
 			categoriaId.append(row[0])
-			categoriaName.append(row[1])
+			
 			subcategoriaId.append(row[2])
-			subcategoriaName.append(row[3])
+			
 			productoId.append(row[4])
-			productoName.append(row[5])
-			productoDescripcion.append(row[6])
-			productoCompa.append(row[7])
-			productoPrecio.append(row[8])
-			productounidades.append(row[9])
+			
 			
 			if vuelta != 0:#Si encuentro contenido y NO LOS TITULOS
 				#ParaCATEGORIAS
 				if categoriaId[-1] in categoriaIdB:
-					categoriaId.pop()
-					categoriaName.pop()
+					pass
 				else:
 					categoriaIdB.append(categoriaId[-1])
+					categoriaName.append(row[1])
+
 				#ParaSUBCATEGORIAS
 				if subcategoriaId[-1] in subcategoriaIdB:
-					subcategoriaIdB.pop()
-					subcategoriaName.pop()
+					pass
 				else:
 					subcategoriaIdB.append(subcategoriaId[-1])
+					subcategoriaName.append(row[3])
 				#ParaPRODUCTO
 				if productoId[-1] in productoIdB:
-					productoId.pop()
-					productoName.pop()
-					productoDescripcion.pop()
-					productoCompa.pop()
-					productoPrecio.pop()
-					productounidades.pop()
-			vuelta+=1
+					pass
+				else:
+					productoIdB.append(productoId[-1])
+					productoName.append(row[5])
+					productoDescripcion.append(row[6])
+					productoCompa.append(row[7])
+					productoPrecio.append(row[8])
+					productounidades.append(row[9])
 
-		return 
+			vuelta+=1
+		print("SUBCATEGORIA-------------")
+		for a in subcategoriaName:
+			print(a)
+		print("CATEGORIAS---------------")
+		for b in categoriaName:
+			print(b)
+		print("PRODUCTOS------------------")
+		for c in productoName:
+			print(c)
+		return productoName
 
