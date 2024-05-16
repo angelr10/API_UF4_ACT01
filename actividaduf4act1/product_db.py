@@ -1,4 +1,5 @@
 from client import db_client
+import csv
 #01 product/ XX
 def showTablaWithName(tablaLectura):
 	conexion = db_client()
@@ -127,4 +128,67 @@ def productoDictDos(a):
 	
 #Actividad02
 def cargaMasivaTodo():
-	pass
+	file = "llista_productes.csv"
+	categoriaId = []
+	categoriaName = []
+	subcategoriaId = []
+	subcategoriaName = []
+	productoId = []
+	productoName = []
+	productoDescripcion = []
+	productoCompa = []
+	productoPrecio = []
+	productounidades = []
+
+	
+	#Basureros
+	categoriaIdB = []
+	subcategoriaIdB = []
+	productoIdB = []
+	# Abrir el archivo CSV
+	with open(file, mode='r', encoding='utf-8') as file:
+		# Crear un lector CSV
+		reader = csv.reader(file)
+		
+		# Leer cada fila en el archivo CSV
+		vuelta = 0
+
+		
+
+		for row in reader:#Lector de tabla y almacenamiento individual
+			categoriaId.append(row[0])
+			categoriaName.append(row[1])
+			subcategoriaId.append(row[2])
+			subcategoriaName.append(row[3])
+			productoId.append(row[4])
+			productoName.append(row[5])
+			productoDescripcion.append(row[6])
+			productoCompa.append(row[7])
+			productoPrecio.append(row[8])
+			productounidades.append(row[9])
+			
+			if vuelta != 0:#Si encuentro contenido y NO LOS TITULOS
+				#ParaCATEGORIAS
+				if categoriaId[-1] in categoriaIdB:
+					categoriaId.pop()
+					categoriaName.pop()
+				else:
+					categoriaIdB.append(categoriaId[-1])
+				#ParaSUBCATEGORIAS
+				if subcategoriaId[-1] in subcategoriaIdB:
+					subcategoriaIdB.pop()
+					subcategoriaName.pop()
+				else:
+					subcategoriaIdB.append(subcategoriaId[-1])
+				#ParaPRODUCTO
+				if productoId[-1] in productoIdB:
+					productoId.pop()
+					productoName.pop()
+					productoDescripcion.pop()
+					productoCompa.pop()
+					productoPrecio.pop()
+					productounidades.pop()
+			vuelta+=1
+
+		return 
+
